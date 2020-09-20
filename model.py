@@ -4,7 +4,7 @@ Created on Tue Sep 15 14:40:21 2020
 
 @author: shiva
 
-This file contains an agent based model
+This file contains an agent based model.
 
 """
 
@@ -29,16 +29,17 @@ def distance_between(a, b):
  
     Parameters
     ----------
-    a : List with 2 integer elements
-            An arb agent with x, y coords
-    b : List with 2 integer elements
-            Another arb agent with x, y coors
+    a : List
+            An arb agent with int x, y coords.
+    b : List 
+            An arb agent with int x, y coords.
 
     Returns
     -------
-    floating point number
+    Float.
         
     """
+    
     #create some local variables 
     y_diff = (a.y - b.y)**2 #difference between y coord of agents 
     x_diff = (a.x - b.x)**2 #difference between x coord of agents

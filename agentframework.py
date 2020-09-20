@@ -4,58 +4,89 @@ Created on Fri Sep 18 23:01:03 2020
 
 @author: shiva
 
-This file contains an Agent class definition and some code to execute
+This file contains an Agent class definition and some code to execute.
 
 """
 
 import random   #for random number generating
 
 
-class Agent: #creating our class, template for every agent 
-    #protecting _x,_y hidden variables, when y, x is accessed/mutated in model,
-    #will divert to these
+class Agent:
+
+    #creating our class, template for every agent 
+    #protecting _x,_y hidden variables #DOC STRING NEEDED HERE TOO!!!!
+
     def get_y (self):
-        return self._y 
+        """Divert access of y int variable to a hidden int variable."""
+        return self._y
+    
     def get_x (self):
+        """Divert access of x int variable to a hidden int variable."""
         return self._x  
+    
     def set_y (self, value):
+        """Divert mutation of y int variable to a hidden int variable."""
         self._y = value
+        
     def set_x (self, value):
+        """Divert access of x int variable to a hidden int variable."""
         self._x = value 
-    #given the x, y property attribues and docstrings
+    #given the y, x property attribues and docstrings
     y = property (get_y, set_y, "I'm the 'y' property") 
     x = property (get_x, set_x, "I'm the 'x' property")
 
 
-    #init constructor method to set new instance object's attributes to their initial state
-    #the agent is passed in & all MUTABLE environ list data
-    #environ for all agents will change when  .envi is used for the specified agent, since the environ list is mutable
-    def __init__(self, environment):  #e.g agent_1 as self & all data from envi list// 
-        self._y = random.randint(0, 99) #instance variables to randomise initial y, x coords, between 0-99, for the particular agent
-        self._x = random.randint(0, 99)  #initialising agents!!!!
-        self.environment = environment #instance var to let every agent have access to the environ data
-        self.store = 0    #not explained yet
+    def __init__(self, environment):
+        """
+        Construct the initial attribute states of the instance object.
+        
+        Parameters
+        ----------
+        environment : List.
+            2D containing lists of the agents y,x coords. 
+
+        Returns
+        -------
+        Agent.
+
+        """
+        #Randomising initial y, x coords of the agent to ints between 0-99
+        self._y = random.randint(0, 99) #instance variables created
+        self._x = random.randint(0, 99)  
+        #Giving every agent access to the same environment data
+        self.environment = environment 
+        #Creating a 'store' for the environment thats been eaten
+        self.store = 0 #inital store begins at zero and will increase later
     
-    def __repr__(self):  #repr function makes printable version of the object, cant directly print objs as they are mutable?
-        return str([self._x, self._y]) #used to print list of initial & moved agents
     
-    #the move method, steps by 1 every agents y & x coords
+    def __repr__(self):
+        """Make printable string version of the instance objects in agent list."""
+        
+        return str([self._x, self._y]) #used to print initial & moved agents
+    
+    
     def move(self):
-        if random.random() < 0.5:    #random no between 0-1 to determine step
-            #using self.y/x now bc there's no 'agents' list to look into in this eviromnet anymore
-            #so dont need to use index in a for loop to determine the agent we are using//1st agent, agent_1 
-            #is already specified here.
-            self._y = (self._y + 1) % 100 #TODO, understand using torus boundary
+        """Random walk 1 step for every agents x, y coords."""
+        
+        #Moving both x, y coord by 1 step with equal probablity.
+        #If generated random number is less than 1/2, step by +1, otherwise
+        #step by -1.
+        if random.random() < 0.5:
+            self._y = (self._y + 1) % 100 #using torus boundary
         else: 
-            self._y = (self._y - 1) % 100 #TODO, CHNAGE THIS TO FOR LOOP ITERATOR STYLE,P5
+            self._y = (self._y - 1) % 100 #TODO, CHANGE TO FOR LOOP ITERATOR STYLE,P5
    
         if random.random() < 0.5:
-            self._x = (self._x + 1) % 100 #whatever self is, ie whatever variable name/object of individual agent is called in the main will have its x coord stepped
+            self._x = (self._x + 1) % 100
         else: 
             self._x = (self._x - 1) % 100
     
+    
     def eat(self):
-        if self.environment[self._y][self._x] > 10: #if the main environment for that particular agent is >10, then minus 10 and add it to the 'store'
+        """Shrink the data in the environment 2D list."""
+        
+        #If main environment is >10, minus 10 and add it to the 'store'.
+        #Environ for all agents will change, since list is mutable.
+        if self.environment[self._y][self._x] > 10: 
             self.environment[self._y][self._x] -= 10
             self.store += 10
-
