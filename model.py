@@ -52,13 +52,12 @@ f = open ('in.txt', newline='') #read data from text file
 dataset = csv.reader (f, quoting=csv.QUOTE_NONNUMERIC) #convers no. to floats
 
 environment = [] #empty list to add the rowlist elements (mutable)
-rowlist = [] #empty list to add each row as an element
+
 for row in dataset:
-    #empty list for every row is added to the main environ list
-    environment.append (rowlist)  #environ is 2D list now with no data
-                                   
+    rowlist = [] #empty list to add each row as an element
     for value in row:
-        rowlist.append (value) #adds each row's data into own rowlist element
+        rowlist.append (value) #adds each row's data as its own rowlist element
+    environment.append (rowlist)  #each rowlist added to environ list, 2D now 
 f.close() 	#file closed after reading data
 
 
@@ -153,7 +152,7 @@ print ("Min distance between agents", min_between)
 #setting graph axis
 matplotlib.pyplot.ylim (0, 100)
 matplotlib.pyplot.xlim (0, 100)
-#display environ data as an image, yellow = not eaten, purple = eaten
+#display environ data as an image, dark blue markings = eaten environ
 matplotlib.pyplot.imshow(environment) 
                                         
 #plotting all points on a scatter graph, correct way ie x, y not y, x
@@ -169,10 +168,11 @@ matplotlib.pyplot.show()  #displays scatter plot of agents
 
 #outputting environment data as a json file
 #f = open ('out.json', 'w') #create json file called 'out', write mode
-#json.dump (environment, f) #dump environ data into the json file 'out'
+#json.dump (environment, f) #dump 2D environ list data into the json file 'out'
 #f.close() #close json file
 
-#g = open ('stored.json', 'w') #create 'store' file
-#json.dump (agentframework.Agent(environment).store, g) #dump the store value into file
-#g.close() 
+g = open ('stored.json', 'w') #create 'store' file
+json.dump (agentframework.Agent(environment).eat, g) #dump the store value 
+g.close()  #FIXME
 
+#print (agentframework.Agent(environment).eat)
