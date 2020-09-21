@@ -56,7 +56,7 @@ class Agent:
         #Giving every agent access to the same environment data
         self.environment = environment 
         #Creating a 'store' for the environment thats been eaten
-        self.store = 0 #inital store begins at zero and will increase later
+        self.store = 8 #inital store begins at zero and will increase later
     
     
     def __repr__(self):

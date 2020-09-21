@@ -13,7 +13,8 @@ import operator #for extrating 2nd element of agents list
 import matplotlib.pyplot #for plotting agents locations
 import time #to see how long dist_between function takes to run
 import agentframework #import the created module/class called Agent
-import csv #to allow data to be read
+import csv #to allow raster data to be read
+import json #to write out python as a json file at end
 
 
 #'fix' the random numbers so outputs stay constant, can change the seed arg
@@ -141,7 +142,7 @@ for m in range (0, num_of_agents, 1):
             min_between = distance 
         else:
             min_between = min (distance, min_between)
-        #IS THERE A WAY TO CONDENSE THIS^?!
+
 end = time.perf_counter() #end the timer for the calculating distances loops
 print ("time = " + str (end - start))
 print ("Max distance between agents", max_between)
@@ -164,3 +165,14 @@ matplotlib.pyplot.scatter (max_y.x, max_y.y, color='blue')#max y dark blue overl
 matplotlib.pyplot.scatter (max_x.x, max_x.y, color='red') #max x red overlay
 
 matplotlib.pyplot.show()  #displays scatter plot of agents
+
+
+#outputting environment data as a json file
+#f = open ('out.json', 'w') #create json file called 'out', write mode
+#json.dump (environment, f) #dump environ data into the json file 'out'
+#f.close() #close json file
+
+#g = open ('stored.json', 'w') #create 'store' file
+#json.dump (agentframework.Agent(environment).store, g) #dump the store value into file
+#g.close() 
+
