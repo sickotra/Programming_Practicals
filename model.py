@@ -20,31 +20,31 @@ import json #to write out python as a json file at end
 #'fix' the random numbers so outputs stay constant, can change the seed arg
 random.seed(0) 
 
-def distance_between(a, b):
-    """
-    Calculate the distance between a and b using Pythagoras' and return it.
+# def distance_between(a, b):
+#     """
+#     Calculate the distance between a and b using Pythagoras' and return it.
      
-    Take arguements a and b that are the 1st dimension of the agents list.
-    Pick out elements in the 2nd dimension of agents list, 
-    using the Agents Class in agentframework module, to calculate dist.
+#     Take arguements a and b that are the 1st dimension of the agents list.
+#     Pick out elements in the 2nd dimension of agents list, 
+#     using the Agents Class in agentframework module, to calculate dist.
  
-    Parameters
-    ----------
-    a : List
-            An arb agent with int x, y coords.
-    b : List 
-            An arb agent with int x, y coords.
+#     Parameters
+#     ----------
+#     a : List
+#             An arb agent with int x, y coords.
+#     b : List 
+#             An arb agent with int x, y coords.
 
-    Returns
-    -------
-    Float.
+#     Returns
+#     -------
+#     Float.
         
-    """
+#     """
     
-    #create some local variables 
-    y_diff = (a.y - b.y)**2 #difference between y coord of agents 
-    x_diff = (a.x - b.x)**2 #difference between x coord of agents
-    return (y_diff + x_diff)**0.5 
+#     #create some local variables 
+#     y_diff = (a.y - b.y)**2 #difference between y coord of agents 
+#     x_diff = (a.x - b.x)**2 #difference between x coord of agents
+#     return (y_diff + x_diff)**0.5 
 
 
 f = open ('in.txt', newline='') #read data from text file
@@ -63,6 +63,7 @@ f.close() 	#file closed after reading data
 
 num_of_agents = 10    #sets the no of agents
 num_of_iterations = 100  #sets number of steps in the random walk
+neighbourhood = 20  #sets the neighbourhood 
 
 agents = []     #Creates empty list to add sets of coords
 
@@ -88,11 +89,13 @@ print ("Initialising agents--")
 #Generating random coords using Agent Class, for every agent
 # then adding it to the agents list previously created
 for i in range (num_of_agents): 
-    #passing in data from our environ list  
-    agents.append (agentframework.Agent(environment))    
+    #passing in data from our environ & agents list  
+    agents.append (agentframework.Agent(environment, agents))
+    #print (agents[i].agents)  #TEST to see each agent get agents list //GETS INFO ABOUT ITSELF TOO THO  
 print ("Initial agents:") #comment out for large no's of agents
 print (agents)  #prints list of all initial agents 
                         
+
 
 print ("Moving agents --")
 # Change y and x for all agents using random walk
@@ -100,7 +103,8 @@ for j in range (num_of_iterations):   #moves the coords num_of_iteration times
 
     for i in range (num_of_agents): #funcs act on every element in agents list
         agents[i].move() #caling move func in Agents class 
-        agents[i].eat()  #shrink the environ for surrounding area of agents                   
+        agents[i].eat()  #shrink the environ for surrounding area of agents 
+        agents[i].share_with_neighbours (neighbourhood) #COMMENT THIS                   
 print("Agents after moving", num_of_iterations, "times:") #comment out for large agents
 print (agents) # 2D list of all the agents after stepping
 
@@ -128,7 +132,7 @@ for m in range (0, num_of_agents, 1):
     for k in range (m + 1, num_of_agents, 1): 
         
         #find distance between 2 agents using defined function
-        distance = distance_between (agents[m], agents[k]) 
+        distance = agents[k].distance_between(other_agent)    #FIXME DOES NOT WORK!!!! THINK LOGIC IS WRONG!!!
         #print (distance)  #prints distances between agents, TEST- comment out
         
         if max_between is None:  #1st run will be true, so sets it to 1st dist

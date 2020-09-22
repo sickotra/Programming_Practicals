@@ -36,7 +36,7 @@ class Agent:
     x = property (get_x, set_x, "I'm the 'x' property")
 
 
-    def __init__(self, environment):
+    def __init__(self, environment, agents):
         """
         Construct the initial attribute states of the instance object.
         
@@ -57,7 +57,7 @@ class Agent:
         self.environment = environment 
         #Creating a 'store' for the environment thats been eaten
         self.store = 0 #inital store begins at zero and will increase later
-    
+        self.agents = agents #giving every agent access to the 'agents' list
     
     def __repr__(self):
         """Make printable string version of the instance objects in agent list."""
@@ -83,12 +83,50 @@ class Agent:
     
     
     def eat(self):
-        """Shrink the data in the environment 2D list."""
+        """Shrink the data in the environment 2D list and add to a store."""
         
         #If main environment is >10, minus 10 and add it to the 'store'.
         #Environ for all agents will change, since list is mutable.
         if self.environment[self._y][self._x] > 10: 
             self.environment[self._y][self._x] -= 10
             self.store += 10
+        #Need an else?
         
-       
+    def distance_between(self, other_agent):
+        """
+        Calculate the distance between a and b using Pythagoras' and return it.
+         
+        Take arguements a and b that are the 1st dimension of the agents list.
+        Pick out elements in the 2nd dimension of agents list, 
+        using the Agents Class in agentframework module, to calculate dist.
+     
+        Parameters
+        ----------
+        a : List
+                An arb agent with int x, y coords.
+        b : List 
+                An arb agent with int x, y coords.
+    
+        Returns
+        -------
+        Float.    #UPDATE THE DOC STRING FOR OOP
+            
+        """
+        
+        #create some local variables 
+        y_diff = (self.y - other_agent.y)**2 #difference between y coord of agents 
+        x_diff = (self.x - other_agent.x)**2 #difference between x coord of agents
+        return (y_diff + x_diff)**0.5 
+        
+
+    def share_with_neighbours(self, neighbourhood):
+        for agent in self.agents:
+            dist = self.distance_between(agent)
+            
+            if dist <= neighbourhood:
+                sum = self.store + agent.store
+                ave = sum/2 
+                self.store = ave
+                agent.store = ave
+                #print ("sharing" + str(dist) + " " + str(ave))
+        
