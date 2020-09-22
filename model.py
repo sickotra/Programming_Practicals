@@ -167,12 +167,9 @@ matplotlib.pyplot.show()  #displays scatter plot of agents
 
 
 #outputting environment data as a json file
-#f = open ('out.json', 'w') #create json file called 'out', write mode
-#json.dump (environment, f) #dump 2D environ list data into the json file 'out'
-#f.close() #close json file
+f = open ('out.json', 'w') #create json file called 'out', write mode
+json.dump (environment, f) #dump 2D environ list data into the json file 'out'
+f.close() #close json file
 
-g = open ('stored.json', 'w') #create 'store' file
-json.dump (agentframework.Agent(environment).eat, g) #dump the store value 
-g.close()  #FIXME
 
-#print (agentframework.Agent(environment).eat)
+

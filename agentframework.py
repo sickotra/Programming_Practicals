@@ -91,5 +91,4 @@ class Agent:
             self.environment[self._y][self._x] -= 10
             self.store += 10
         
-
- 
+       
