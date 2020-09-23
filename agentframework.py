@@ -25,11 +25,11 @@ class Agent:
         return self._x  
     
     def set_y (self, value):
-        """Divert mutation of y int variable to a hidden int variable."""
+        """Divert mutation of y int variable to a hidden float variable."""
         self._y = value
         
     def set_x (self, value):
-        """Divert access of x int variable to a hidden int variable."""
+        """Divert mutation of x int variable to a hidden float variable."""
         self._x = value 
     #given the y, x property attribues and docstrings
     y = property (get_y, set_y, "I'm the 'y' property") 
@@ -42,14 +42,17 @@ class Agent:
         
         Parameters
         ----------
-        environment : List.
-            2D containing lists of the agents y,x coords. 
+        environment : list.
+            2D containing lists of row data from imported file 'in.txt'. 
+        agents : list.
+            2D containing lists of all the agents y,x coords. 
 
         Returns
         -------
         Agent.
 
         """
+        
         #Randomising initial y, x coords of the agent to ints between 0-99
         self._y = random.randint(0, 99) #instance variables created
         self._x = random.randint(0, 99)  
@@ -60,7 +63,7 @@ class Agent:
         self.agents = agents #giving every agent access to the 'agents' list
     
     def __repr__(self):
-        """Make printable string version of the instance objects in agent list."""
+        """Make printable string version of instance objects in agent list."""
         
         return str([self._x, self._y]) #used to print initial & moved agents
     
@@ -94,39 +97,51 @@ class Agent:
         
     def distance_between(self, other_agent):
         """
-        Calculate the distance between a and b using Pythagoras' and return it.
-         
-        Take arguements a and b that are the 1st dimension of the agents list.
-        Pick out elements in the 2nd dimension of agents list, 
-        using the Agents Class in agentframework module, to calculate dist.
-     
+        Calculate distance between 2 agents using Pythagoras' and return it.
+        
         Parameters
         ----------
-        a : List
-                An arb agent with int x, y coords.
-        b : List 
+        other_agent : Agent.
                 An arb agent with int x, y coords.
     
         Returns
         -------
-        Float.    #UPDATE THE DOC STRING FOR OOP
+        float.
             
         """
-        
-        #create some local variables 
-        y_diff = (self.y - other_agent.y)**2 #difference between y coord of agents 
-        x_diff = (self.x - other_agent.x)**2 #difference between x coord of agents
+    
+        y_diff = (self.y - other_agent.y)**2 #diff between y coord of agents 
+        x_diff = (self.x - other_agent.x)**2 #diff between x coord of agents
         return (y_diff + x_diff)**0.5 
         
 
     def share_with_neighbours(self, neighbourhood):
-        for agent in self.agents:
-            dist = self.distance_between(agent)
+        """
+        
+        Share resources to other agents in close range.
+        
+        If distance to other agents is less than or equal to the neighbourhood 
+        int value, then share resources by setting its own and the neighbours' 
+        stores to the average of the store between them.
+
+        
+        Parameters
+        ----------
+        neighbourhood : int.
+            The variable to choose when the resources will be shared.
+
+        Returns
+        -------
+        None.
+
+        """
+        
+        for i in self.agents: #for every agent in the agents list
+            dist = self.distance_between(i) #dist between this agent & another
             
-            if dist <= neighbourhood:
-                sum = self.store + agent.store
-                ave = sum/2 
-                self.store = ave
-                agent.store = ave
-                #print ("sharing" + str(dist) + " " + str(ave))
+            if dist <= neighbourhood: #dist less then or equal to integer set
+                average = (self.store + i.store)/2  #calulate average of stores
+                self.store = average #set both stores to new average 
+                i.store = average 
+                #print ("sharing" + str(dist) + " " + str(average))  #TEST
         

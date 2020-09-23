@@ -16,35 +16,9 @@ import agentframework #import the created module/class called Agent
 import csv #to allow raster data to be read
 import json #to write out python as a json file at end
 
-
 #'fix' the random numbers so outputs stay constant, can change the seed arg
 random.seed(0) 
 
-# def distance_between(a, b):
-#     """
-#     Calculate the distance between a and b using Pythagoras' and return it.
-     
-#     Take arguements a and b that are the 1st dimension of the agents list.
-#     Pick out elements in the 2nd dimension of agents list, 
-#     using the Agents Class in agentframework module, to calculate dist.
- 
-#     Parameters
-#     ----------
-#     a : List
-#             An arb agent with int x, y coords.
-#     b : List 
-#             An arb agent with int x, y coords.
-
-#     Returns
-#     -------
-#     Float.
-        
-#     """
-    
-#     #create some local variables 
-#     y_diff = (a.y - b.y)**2 #difference between y coord of agents 
-#     x_diff = (a.x - b.x)**2 #difference between x coord of agents
-#     return (y_diff + x_diff)**0.5 
 
 
 f = open ('in.txt', newline='') #read data from text file
@@ -85,6 +59,7 @@ print (agent_1.y, agent_1.x)   #will print cood of 1st agent after 100 moves
 #end of testing'''
 
 
+
 print ("Initialising agents--") 
 #Generating random coords using Agent Class, for every agent
 # then adding it to the agents list previously created
@@ -92,21 +67,24 @@ for i in range (num_of_agents):
     #passing in data from our environ & agents list  
     agents.append (agentframework.Agent(environment, agents))
     #print (agents[i].agents)  #TEST to see each agent get agents list //GETS INFO ABOUT ITSELF TOO THO  
-print ("Initial agents:") #comment out for large no's of agents
-print (agents)  #prints list of all initial agents 
+#print ("Initial agents:") #comment out for large no's of agents
+#print (agents)  #prints list of all initial agents
                         
 
 
-print ("Moving agents --")
+print ("Moving agents", num_of_iterations, "times --")
 # Change y and x for all agents using random walk
-for j in range (num_of_iterations):   #moves the coords num_of_iteration times
 
+for j in range (num_of_iterations):   #moves the coords num_of_iteration times
+    #randomly shuffles agents list each iternation, reduce model artifacts
+    random.shuffle (agents) 
     for i in range (num_of_agents): #funcs act on every element in agents list
         agents[i].move() #caling move func in Agents class 
         agents[i].eat()  #shrink the environ for surrounding area of agents 
-        agents[i].share_with_neighbours (neighbourhood) #COMMENT THIS                   
-print("Agents after moving", num_of_iterations, "times:") #comment out for large agents
-print (agents) # 2D list of all the agents after stepping
+        #give each agent info about any nearby agents to share resources
+        agents[i].share_with_neighbours (neighbourhood)                   
+#print("Agents after moving:") #comment out for large no's of agents
+#print (agents) # 2D list of agents after stepping
 
 
 
@@ -117,6 +95,7 @@ print ("Max agent in y direction (dark blue):", max_y)
 print ("Max agent in x direction (red):", max_x)   
 
 
+
 #finding min/max distances between the agents
 #initially setting to None so that max/min dist func can compare
 max_between = None 
@@ -125,16 +104,13 @@ min_between = None
 start = time.perf_counter() #start clock to assess efficiency 
 #outer loop starts by fixing 1st agent stepping by 1 to last agent
 for m in range (0, num_of_agents, 1):    
-    
-    #To optimise time, run through only lower triangle of distances matrix,
-    #where rows & cols are the agent, removing repeated combos and dists 
-    #between an agent and itself
+    other_agent = agents[m]
+    #To optimise run time, only lower triangle of distances matrix visited,
+    #to remove repeated combos, where rows & cols are the agents 
     for k in range (m + 1, num_of_agents, 1): 
-        
-        #find distance between 2 agents using defined function
-        distance = agents[k].distance_between(other_agent)    #FIXME DOES NOT WORK!!!! THINK LOGIC IS WRONG!!!
+        #find distance between 2 agents using method
+        distance = agents[k].distance_between(other_agent) 
         #print (distance)  #prints distances between agents, TEST- comment out
-        
         if max_between is None:  #1st run will be true, so sets it to 1st dist
             max_between = distance 
         else:
@@ -153,8 +129,8 @@ print ("Min distance between agents", min_between)
 
 
 
-#setting graph axis
-matplotlib.pyplot.ylim (0, 100)
+
+matplotlib.pyplot.ylim (0, 100) ##setting graph axis
 matplotlib.pyplot.xlim (0, 100)
 #display environ data as an image, dark blue markings = eaten environ
 matplotlib.pyplot.imshow(environment) 
@@ -166,8 +142,8 @@ for i in range (num_of_agents):
     
 matplotlib.pyplot.scatter (max_y.x, max_y.y, color='blue')#max y dark blue overlay
 matplotlib.pyplot.scatter (max_x.x, max_x.y, color='red') #max x red overlay
-
 matplotlib.pyplot.show()  #displays scatter plot of agents
+
 
 
 #outputting environment data as a json file
