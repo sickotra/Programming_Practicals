@@ -11,11 +11,19 @@ This file contains an agent based model.
 import random  #for random number generating
 import operator #for extrating 2nd element of agents list
 import matplotlib.pyplot #for plotting agents locations
+import matplotlib.animation #for adding animation
 import time #to see how long dist_between function takes to run
 import agentframework #import the created module/class called Agent
 import csv #to allow raster data to be read
 import json #to write out python as a json file at end
+import os
+import pathlib #to create PATH to intercat with command line 
+import sys #to allow major model parameters to  be entered at command line
 
+q = os.path.join(pathlib.Path.cwd().anchor, 'Documents', 'Programming for\
+                 Social Science', 'Programming_Module_Practicals',\
+                     'Programming_Practicals')
+p = pathlib.Path(q) #create path
 #'fix' the random numbers so outputs stay constant, can change the seed arg
 random.seed(0) 
 
@@ -38,6 +46,10 @@ f.close() 	#file closed after reading data
 num_of_agents = 10    #sets the no of agents
 num_of_iterations = 100  #sets number of steps in the random walk
 neighbourhood = 20  #sets the neighbourhood 
+print ("Number of Agents:", len(sys.argv)) #Values print in command line
+print ("Number of Iterations", len(sys.argv))
+print ("Neighbourhood:", len(sys.argv))
+
 
 agents = []     #Creates empty list to add sets of coords
 
@@ -63,7 +75,9 @@ print (agent_1.y, agent_1.x)   #will print cood of 1st agent after 100 moves
 print ("Initialising agents--") 
 #Generating random coords using Agent Class, for every agent
 # then adding it to the agents list previously created
+
 for i in range (num_of_agents): 
+    
     #passing in data from our environ & agents list  
     agents.append (agentframework.Agent(environment, agents))
     #print (agents[i].agents)  #TEST to see each agent get agents list //GETS INFO ABOUT ITSELF TOO THO  
@@ -142,7 +156,13 @@ for i in range (num_of_agents):
     
 matplotlib.pyplot.scatter (max_y.x, max_y.y, color='blue')#max y dark blue overlay
 matplotlib.pyplot.scatter (max_x.x, max_x.y, color='red') #max x red overlay
+
+animation = matplotlib.animation.FuncAnimation(fig, update, interval=1)
+
 matplotlib.pyplot.show()  #displays scatter plot of agents
+
+
+
 
 
 
