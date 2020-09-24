@@ -20,10 +20,11 @@ import os
 import pathlib #to create PATH to intercat with command line 
 import sys #to allow major model parameters to  be entered at command line
 
-q = os.path.join(pathlib.Path.cwd().anchor, 'Documents', 'Programming for\
-                 Social Science', 'Programming_Module_Practicals',\
-                     'Programming_Practicals')
-p = pathlib.Path(q) #create path
+# q = os.path.join(pathlib.Path.cwd().anchor, 'Documents', 'Programming for Social Science', 'Programming_Module_Practicals','Programming_Practicals')
+# p = pathlib.Path(q) #create path
+
+
+
 #'fix' the random numbers so outputs stay constant, can change the seed arg
 random.seed(0) 
 
@@ -43,13 +44,12 @@ for row in dataset:
 f.close() 	#file closed after reading data
 
 
-num_of_agents = 10    #sets the no of agents
-num_of_iterations = 100  #sets number of steps in the random walk
-neighbourhood = 20  #sets the neighbourhood 
-print ("Number of Agents:", len(sys.argv)) #Values print in command line
-print ("Number of Iterations", len(sys.argv))
-print ("Neighbourhood:", len(sys.argv))
-
+num_of_agents = int(sys.argv[1])    #sets the no of agents
+num_of_iterations = int(sys.argv[2])  #sets number of steps in the random walk
+neighbourhood = int(sys.argv[3])  #sets the neighbourhood 
+print ("Number of Agents:", num_of_agents) #Values print in command line
+print ("Number of Iterations", num_of_iterations)
+print ("Neighbourhood:", neighbourhood)
 
 agents = []     #Creates empty list to add sets of coords
 
@@ -89,7 +89,7 @@ for i in range (num_of_agents):
 print ("Moving agents", num_of_iterations, "times --")
 # Change y and x for all agents using random walk
 
-for j in range (num_of_iterations):   #moves the coords num_of_iteration times
+for j in range (num_of_iterations):   #moves the coords num of iteration times
     #randomly shuffles agents list each iternation, reduce model artifacts
     random.shuffle (agents) 
     for i in range (num_of_agents): #funcs act on every element in agents list
@@ -156,13 +156,25 @@ for i in range (num_of_agents):
     
 matplotlib.pyplot.scatter (max_y.x, max_y.y, color='blue')#max y dark blue overlay
 matplotlib.pyplot.scatter (max_x.x, max_x.y, color='red') #max x red overlay
-
-animation = matplotlib.animation.FuncAnimation(fig, update, interval=1)
-
 matplotlib.pyplot.show()  #displays scatter plot of agents
 
 
 
+
+# fig = matplotlib.pyplot.figure(figsize=(7, 7))
+# ax = fig.add_axes([0, 0, 1, 1])
+# ax.set_autoscale_on(False)
+
+
+# def update(agents, environment):
+#     fig.clear()
+#     for i in range (num_of_agents):
+#         agents[i].move()
+#         matplotlib.plyplot.scatter(agents[i].x, agents[i].y)
+#         print (agents[i].x, agents[i].y)
+        
+# animation = matplotlib.animation.FuncAnimation(fig, update, interval=1)
+# matplotlib.pyplot.show()
 
 
 

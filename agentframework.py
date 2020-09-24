@@ -62,7 +62,7 @@ class Agent:
         #Creating a 'store' for the environment thats been eaten
         self.store = 0 #inital store begins at zero and will increase later
         self.agents = agents #giving every agent access to the 'agents' list
-        self.frame_number = frame_number
+       
     
     def __repr__(self):
         """Make printable string version of instance objects in agent list."""
@@ -149,16 +149,12 @@ class Agent:
                 #print ("sharing" + str(dist) + " " + str(average))  #TEST
         
 
-    def update(frame_number):
-        fig = matplotlib.pyplot.figure(figsize=(7, 7))
-        ax = fig.add_axes([0, 0, 1, 1])
-        #ax.set_autoscale_on(False)
-        fig.clear()
+    # def update(frame_number):
         
-        for i in self.agents:
-            self.move(i)
-            matplotlib.plyplot.scatter(self._x, self._y)
-            print (self._x, self._y)
+        
+    #     for i in self.agents:
+    #         frame_number = self.move(i)
+            
         
 
 
