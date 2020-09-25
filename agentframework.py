@@ -149,11 +149,6 @@ class Agent:
                 #print ("sharing" + str(dist) + " " + str(average))  #TEST
         
 
-    # def update(frame_number):
-        
-        
-    #     for i in self.agents:
-    #         frame_number = self.move(i)
             
         
 

@@ -11,7 +11,7 @@ This file contains an agent based model.
 import random  #for random number generating
 import operator #for extrating 2nd element of agents list
 import matplotlib.pyplot #for plotting agents locations
-import matplotlib.animation #for adding animation
+from matplotlib.animation import FuncAnimation #for adding animation
 import time #to see how long dist_between function takes to run
 import agentframework #import the created module/class called Agent
 import csv #to allow raster data to be read
@@ -43,10 +43,12 @@ for row in dataset:
     environment.append (rowlist)  #each rowlist added to environ list, 2D now 
 f.close() 	#file closed after reading data
 
-
-num_of_agents = int(sys.argv[1])    #sets the no of agents
-num_of_iterations = int(sys.argv[2])  #sets number of steps in the random walk
-neighbourhood = int(sys.argv[3])  #sets the neighbourhood 
+num_of_agents = 10    #sets the no of agents
+num_of_iterations = 100  #sets number of steps in the random walk
+neighbourhood = 20
+# num_of_agents = int(sys.argv[1])    #sets the no of agents          #FIX COMMENTING !
+# num_of_iterations = int(sys.argv[2])  #sets number of steps in the random walk
+# neighbourhood = int(sys.argv[3])  #sets the neighbourhood 
 print ("Number of Agents:", num_of_agents) #Values print in command line
 print ("Number of Iterations", num_of_iterations)
 print ("Neighbourhood:", neighbourhood)
@@ -161,27 +163,29 @@ matplotlib.pyplot.show()  #displays scatter plot of agents
 
 
 
-# fig = matplotlib.pyplot.figure(figsize=(7, 7))
-# ax = fig.add_axes([0, 0, 1, 1])
-# ax.set_autoscale_on(False)
+fig = matplotlib.pyplot.figure(figsize=(7, 7))
+ax = fig.add_axes([0, 0, 1, 1])
+ax.set_autoscale_on(False)
+
+#Animation, opens in pop up
+def update(frame_number):
+    fig.clear()
+    for i in agents:
+        i.move()
+        matplotlib.pyplot.scatter(i.x, i.y)
+        print (i.x, i.y)       
+animation = FuncAnimation(fig, update, interval=1)
+matplotlib.pyplot.show()
 
 
-# def update(agents, environment):
-#     fig.clear()
-#     for i in range (num_of_agents):
-#         agents[i].move()
-#         matplotlib.plyplot.scatter(agents[i].x, agents[i].y)
-#         print (agents[i].x, agents[i].y)
-        
-# animation = matplotlib.animation.FuncAnimation(fig, update, interval=1)
-# matplotlib.pyplot.show()
+
+
 
 
 
 #outputting environment data as a json file
-f = open ('out.json', 'w') #create json file called 'out', write mode
-json.dump (environment, f) #dump 2D environ list data into the json file 'out'
-f.close() #close json file
-
+#f = open ('out.json', 'w') #create json file called 'out', write mode
+#json.dump (environment, f) #dump 2D environ list data into the json file 'out'
+#f.close() #close json file
 
 
