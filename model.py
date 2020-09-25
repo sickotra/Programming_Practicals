@@ -168,13 +168,34 @@ ax = fig.add_axes([0, 0, 1, 1])
 ax.set_autoscale_on(False)
 
 #Animation, opens in pop up
+carry_on = True #initially set to true
+
 def update(frame_number):
     fig.clear()
+    global carry_on #why does it need to be global?
+    
+    for i in agents: #for every agent in the agents list
+        i.move() #move method for each agent
+        
+    #if random.random() < 0.1:
+    if i.store >= 1000: #stops eating once 
+        carry_on = False
+        print ("stopping condition reached")
+    
     for i in agents:
-        i.move()
-        matplotlib.pyplot.scatter(i.x, i.y)
-        print (i.x, i.y)       
-animation = FuncAnimation(fig, update, interval=1)
+        matplotlib.pyplot.scatter(i.x, i.y) #plot x,y of each agent
+        print (i.x, i.y)   
+        
+
+def gen_function (b= [0]):
+    a = 0
+    global carry_on #not needed bc we arent assigning, but is clearer
+
+    while (a < 10) & (carry_on):
+        yield a
+        a = a + 1
+        
+animation = FuncAnimation(fig,update, interval=1, repeat=False, frames=gen_function)
 matplotlib.pyplot.show()
 
 
