@@ -20,9 +20,29 @@ import agentframework #import the created module/class called Agent
 import csv #to allow raster data to be read
 import json #to write out python as a json file at end
 import sys #to allow major model parameters to  be entered at command line
+import requests
+import bs4
 
 #'fix' the random numbers so outputs stay constant, can change the seed arg
 random.seed(0) 
+
+#Web scraping 
+#download the HTML page with data, no username/password needed
+url = 'http://www.geog.leeds.ac.uk/courses/computing/practicals/python/agent-framework/part9/data.html' #html needed?
+r = requests.get(url)
+content = r.text #to get page, assign data as a variable
+
+#take content from the request obj and parse it into the DOM 
+#can use soup obj to navigate/search around data
+soup = bs4.BeautifulSoup(content, 'html.parser')
+
+#use soup to get all elements with attribute y & x
+tdy = soup.find_all(attrs = {"class": "y"})
+tdx = soup.find_all(attrs = {"class": "x"})
+print (tdy) #print the y's and x's
+print(tdx)
+
+
 
 
 
@@ -43,7 +63,7 @@ f.close() 	#file closed after reading data
 num_of_agents = 10    #sets the no of agents
 num_of_iterations = 100  #sets number of steps in the random walk
 neighbourhood = 20 #sets the neighbourhood 
-# num_of_agents = int(sys.argv[1])    #User can input args from command prompt
+# num_of_agents = int(sys.argv[1])    #User can input args from command prompt    #TODO need to add exceptions!
 # num_of_iterations = int(sys.argv[2]) 
 # neighbourhood = int(sys.argv[3])  
 print ("Number of Agents:", num_of_agents) #printint to show vals used
@@ -209,7 +229,8 @@ def gen_function (b= [0]):
         yield a
         a = a + 1 #add 1 to a 
 
-#Create the animation using update func and frames arg is the gen func        
+
+#Create the animation using update func and frames arg is the gen func         #can delete  
 #animation = FuncAnimation(fig,update, interval=1, repeat=False, frames=gen_function)
 #matplotlib.pyplot.show() #shows the animation created in a pop up window
 
@@ -218,7 +239,7 @@ def run ():
     """ Run the animation using update function and display this."""
     
     animation = FuncAnimation(fig, update, interval=1, repeat=False, frames=gen_function)
-    canvas.show()
+    canvas.show() #shows animation when model is ran from the menu command
 
 #Creating GUI 
 root = tkinter.Tk() #build main window
