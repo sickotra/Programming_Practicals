@@ -16,14 +16,7 @@ import time #to see how long dist_between function takes to run
 import agentframework #import the created module/class called Agent
 import csv #to allow raster data to be read
 import json #to write out python as a json file at end
-import os
-import pathlib #to create PATH to intercat with command line 
 import sys #to allow major model parameters to  be entered at command line
-
-# q = os.path.join(pathlib.Path.cwd().anchor, 'Documents', 'Programming for Social Science', 'Programming_Module_Practicals','Programming_Practicals')
-# p = pathlib.Path(q) #create path
-
-
 
 #'fix' the random numbers so outputs stay constant, can change the seed arg
 random.seed(0) 
@@ -43,13 +36,14 @@ for row in dataset:
     environment.append (rowlist)  #each rowlist added to environ list, 2D now 
 f.close() 	#file closed after reading data
 
+#comment out belwo variables for command prompt interactivity
 num_of_agents = 10    #sets the no of agents
 num_of_iterations = 100  #sets number of steps in the random walk
-neighbourhood = 20
-# num_of_agents = int(sys.argv[1])    #sets the no of agents          #FIX COMMENTING !
-# num_of_iterations = int(sys.argv[2])  #sets number of steps in the random walk
-# neighbourhood = int(sys.argv[3])  #sets the neighbourhood 
-print ("Number of Agents:", num_of_agents) #Values print in command line
+neighbourhood = 20 #sets the neighbourhood 
+# num_of_agents = int(sys.argv[1])    #User can input args from command prompt
+# num_of_iterations = int(sys.argv[2]) 
+# neighbourhood = int(sys.argv[3])  
+print ("Number of Agents:", num_of_agents) #printint to show vals used
 print ("Number of Iterations", num_of_iterations)
 print ("Neighbourhood:", neighbourhood)
 
@@ -82,7 +76,7 @@ for i in range (num_of_agents):
     
     #passing in data from our environ & agents list  
     agents.append (agentframework.Agent(environment, agents))
-    #print (agents[i].agents)  #TEST to see each agent get agents list //GETS INFO ABOUT ITSELF TOO THO  
+    #print (agents[i].agents)  #TEST to see each agent get agents list
 #print ("Initial agents:") #comment out for large no's of agents
 #print (agents)  #prints list of all initial agents
                         
@@ -162,41 +156,59 @@ matplotlib.pyplot.show()  #displays scatter plot of agents
 
 
 
-
-fig = matplotlib.pyplot.figure(figsize=(7, 7))
+#Animation
+fig = matplotlib.pyplot.figure(figsize=(7, 7)) #create a figure and set axes
 ax = fig.add_axes([0, 0, 1, 1])
 ax.set_autoscale_on(False)
 
-#Animation, opens in pop up
 carry_on = True #initially set to true
 
 def update(frame_number):
+    """Move and plot agents, stop if the store value reaches 1000.""" 
+          
     fig.clear()
-    global carry_on #why does it need to be global?
+    global carry_on #so variable can be assigned in the func
     
-    for i in agents: #for every agent in the agents list
+    for i in agents: 
         i.move() #move method for each agent
         
     #if random.random() < 0.1:
-    if i.store >= 1000: #stops eating once 
+    if i.store >= 1000: #stops eating once store val reaches 999
         carry_on = False
         print ("stopping condition reached")
     
-    for i in agents:
+    for i in agents:  #for every agent in the agents list
         matplotlib.pyplot.scatter(i.x, i.y) #plot x,y of each agent
         print (i.x, i.y)   
         
 
-def gen_function (b= [0]):
-    a = 0
-    global carry_on #not needed bc we arent assigning, but is clearer
+def gen_function (b= [0]): 
+    """
+    Stop supplying an input when condition is met.
+    
+    The function will stop yielding a result once it has provided an output
+    num_of_iteration times and when store value is over 1000.
 
-    while (a < 10) & (carry_on):
+    Parameters
+    ----------
+    b : list, optional
+        The default is [0].
+
+    Yields
+    ------
+    a : int
+
+    """
+   
+    a = 0 #initially set a to 0
+    #when a is < num of iter & carry_on is True, gives a
+    while (a < num_of_iterations) & (carry_on): 
         yield a
-        a = a + 1
-        
+        a = a + 1 #add 1 to a 
+
+#Create the animation using update func and frames arg is the gen func        
 animation = FuncAnimation(fig,update, interval=1, repeat=False, frames=gen_function)
-matplotlib.pyplot.show()
+matplotlib.pyplot.show() #shows the animation created in a pop up window
 
 
 

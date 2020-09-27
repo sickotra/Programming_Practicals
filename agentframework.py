@@ -9,8 +9,7 @@ This file contains an Agent class definition and some code to execute.
 """
 
 import random   #for random number generating
-import matplotlib.pyplot
-import matplotlib.animation
+
 
 class Agent:
 
@@ -37,7 +36,7 @@ class Agent:
     x = property (get_x, set_x, "I'm the 'x' property")
 
 
-    def __init__(self, environment, agents):  #ADD THE X Y HERE LATER AND MOVE RANDINT PART TO MAIN 
+    def __init__(self, environment, agents):
         """
         Construct the initial attribute states of the instance object.
         
@@ -79,7 +78,7 @@ class Agent:
         if random.random() < 0.5:
             self._y = (self._y + 1) % 100 #using torus boundary
         else: 
-            self._y = (self._y - 1) % 100 #TODO, CHANGE TO FOR LOOP ITERATOR STYLE,P5
+            self._y = (self._y - 1) % 100 
    
         if random.random() < 0.5:
             self._x = (self._x + 1) % 100
