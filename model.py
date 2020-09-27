@@ -36,7 +36,7 @@ content = r.text #to get page, assign data as a variable
 #can use soup obj to navigate/search around data
 soup = bs4.BeautifulSoup(content, 'html.parser')
 
-#use soup to get all elements with attribute y & x
+#use soup to get all table elements with attribute y & x
 tdy = soup.find_all(attrs = {"class": "y"})
 tdx = soup.find_all(attrs = {"class": "x"})
 print (tdy) #print the y's and x's
@@ -97,8 +97,10 @@ print ("Initialising agents--")
 
 for i in range (num_of_agents): 
     
+    y = int (tdy[i].text)
+    x = int (tdx[i].text)
     #passing in data from our environ & agents list  
-    agents.append (agentframework.Agent(environment, agents))
+    agents.append (agentframework.Agent(environment, agents, y, x))
     #print (agents[i].agents)  #TEST to see each agent get agents list
 #print ("Initial agents:") #comment out for large no's of agents
 #print (agents)  #prints list of all initial agents

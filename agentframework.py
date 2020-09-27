@@ -36,7 +36,7 @@ class Agent:
     x = property (get_x, set_x, "I'm the 'x' property")
 
 
-    def __init__(self, environment, agents):
+    def __init__(self, environment, agents, y = None, x = None):
         """
         Construct the initial attribute states of the instance object.
         
@@ -52,10 +52,18 @@ class Agent:
         Agent.
 
         """
-        
         #Randomising initial y, x coords of the agent to ints between 0-99
-        self._y = random.randint(0, 99) #instance variables created
-        self._x = random.randint(0, 99)  
+        #if no y, x given, otherwise use data parsed in from HTML webpage
+        if (y == None):
+            self._y = random.randint(0, 99) 
+        else:
+            self._y = y
+            
+        if (x == None):
+            self._x = random.randint(0, 99)  
+        else:
+            self.x = x
+            
         #Giving every agent access to the same environment data
         self.environment = environment 
         #Creating a 'store' for the environment thats been eaten
