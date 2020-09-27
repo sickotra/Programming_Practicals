@@ -10,6 +10,9 @@ This file contains an agent based model.
 
 import random  #for random number generating
 import operator #for extrating 2nd element of agents list
+import tkinter
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot #for plotting agents locations
 from matplotlib.animation import FuncAnimation #for adding animation
 import time #to see how long dist_between function takes to run
@@ -207,11 +210,30 @@ def gen_function (b= [0]):
         a = a + 1 #add 1 to a 
 
 #Create the animation using update func and frames arg is the gen func        
-animation = FuncAnimation(fig,update, interval=1, repeat=False, frames=gen_function)
-matplotlib.pyplot.show() #shows the animation created in a pop up window
+#animation = FuncAnimation(fig,update, interval=1, repeat=False, frames=gen_function)
+#matplotlib.pyplot.show() #shows the animation created in a pop up window
 
 
+def run ():
+    """ Run the animation using update function and display this."""
+    
+    animation = FuncAnimation(fig, update, interval=1, repeat=False, frames=gen_function)
+    canvas.show()
 
+#Creating GUI 
+root = tkinter.Tk() #build main window
+root.wm_title ("Model") #sets title for main window
+#create a matplotlib canvas within main window and associate with fig 
+canvas = matplotlib.backends.backend_tkagg.FigureCanvasTkAgg(fig, master = root) 
+#pack lays out onto the window
+canvas._tkcanvas.pack(side = tkinter.TOP, fill = tkinter.BOTH, expand = 1) 
+
+menu_bar = tkinter.Menu(root) #create menu, passing in the root window
+root.config(menu = menu_bar) #config root so that its menu is the menu created
+model_menu = tkinter.Menu (menu_bar)
+menu_bar.add_cascade (label = "Model", menu = model_menu) #add menu as dropdown
+model_menu.add_command (label = "Run model", command = run) #bind run func 
+tkinter.mainloop()
 
 
 
