@@ -6,7 +6,9 @@ A UML class diagram for the ABM program is included in the repository.
 
 ## Running the Program
 The number of agents, number of iterations of the random walks and the neighbourhood can be entered as arguments respectively from the anaconda command prompt/terminal by
-`Python model.py [arg1 = 10, arg2 = 100, arg3 = 20]`
+
+`python  model.py  arg1 = 10  arg2 = 100  arg3 = 20`,
+
 where the default arguments will be used if none are specified by the user. Only integer values should be used as arguements. 
 
 Note: Code written using Python version 3.8.3 and so a version of Python 3 should be used to run the code.
