@@ -22,8 +22,9 @@ Note: Code written using Python version 3.8.3 and so a version of Python 3 shoul
 
 ## Visualisations (Outputs)
 Once the file is run, 2 figures will be outputted:
-* A plot to visualise the agents locations and the environment they have eaten will be shown. The maximum agents in the y and x direction will be overlaid in blue/red  respectively with square markers. The maximum/minimum distance between the agents will be calculated. The search process is optimised so that it does not repeat pairs of agents or test agents against themselves. The time taken to do this is recorded. 
-* The second output is a window with a dropdown menu that will allow the user to run the model again. This will run an animation (when window is full screen) and show the agents’ movement. The animation continues until a stopping condition has been reached and there has been num_of_iteration iterations. 
+* A plot to visualise the agents locations and the environment they have eaten will be shown.
+The maximum agents in the `y` and `x` direction will be overlaid in blue/red  respectively with square markers. The maximum/minimum distance between the agents will be calculated. The search process is optimised so that it does not repeat pairs of agents or test agents against themselves. The time taken to do this is recorded. 
+* The second output is a window with a dropdown menu that will allow the user to run the model again. This will run an animation (when window is full screen) and show the agents’ movement. The animation continues until a stopping condition has been reached and when there has been `num_of_iteration` iterations. 
 
 
 
