@@ -45,13 +45,18 @@ class Agent:
         environment : list.
             2D containing lists of row data from imported file 'in.txt'. 
         agents : list.
-            2D containing lists of all the agents y,x coords. 
+            2D containing lists of all the agents y,x coords.
+        y : NoneType, optional
+            The default is None.
+        x : NoneType, optional
+            The default is None.
 
         Returns
         -------
         Agent.
 
         """
+        
         #Randomising initial y, x coords of the agent to ints between 0-99
         #if no y, x given, otherwise use data parsed in from HTML webpage
         if (y == None):

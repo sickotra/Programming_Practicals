@@ -20,15 +20,17 @@ import agentframework #import the created module/class called Agent
 import csv #to allow raster data to be read
 import json #to write out python as a json file at end
 import sys #to allow major model parameters to  be entered at command line
-import requests
-import bs4
+import requests #to download webpage data
+import bs4 #to process webpage
 
 #'fix' the random numbers so outputs stay constant, can change the seed arg
 random.seed(0) 
 
+
+
 #Web scraping 
 #download the HTML page with data, no username/password needed
-url = 'http://www.geog.leeds.ac.uk/courses/computing/practicals/python/agent-framework/part9/data.html' #html needed?
+url = 'http://www.geog.leeds.ac.uk/courses/computing/practicals/python/agent-framework/part9/data.html'
 r = requests.get(url)
 content = r.text #to get page, assign data as a variable
 
@@ -44,8 +46,7 @@ print(tdx)
 
 
 
-
-
+#Setting up environment 
 f = open ('in.txt', newline='') #read data from text file
 #csv.reader gives data as list of list to be looped through
 dataset = csv.reader (f, quoting=csv.QUOTE_NONNUMERIC) #convers no. to floats
@@ -59,6 +60,8 @@ for row in dataset:
     environment.append (rowlist)  #each rowlist added to environ list, 2D now 
 f.close() 	#file closed after reading data
 
+
+
 #comment out belwo variables for command prompt interactivity
 num_of_agents = 10    #sets the no of agents
 num_of_iterations = 100  #sets number of steps in the random walk
@@ -66,12 +69,13 @@ neighbourhood = 20 #sets the neighbourhood
 # num_of_agents = int(sys.argv[1])    #User can input args from command prompt    #TODO need to add exceptions!
 # num_of_iterations = int(sys.argv[2]) 
 # neighbourhood = int(sys.argv[3])  
-print ("Number of Agents:", num_of_agents) #printint to show vals used
+print ("Number of Agents:", num_of_agents) #print to show vals used
 print ("Number of Iterations", num_of_iterations)
 print ("Neighbourhood:", neighbourhood)
 
-agents = []     #Creates empty list to add sets of coords
 
+
+agents = []     #Creates empty list to add sets of coords
 
 '''#testing for 1 agent
 
@@ -90,7 +94,6 @@ print (agent_1.y, agent_1.x)   #will print cood of 1st agent after 100 moves
 #end of testing'''
 
 
-
 print ("Initialising agents--") 
 #Generating random coords using Agent Class, for every agent
 # then adding it to the agents list previously created
@@ -99,7 +102,7 @@ for i in range (num_of_agents):
     
     y = int (tdy[i].text)
     x = int (tdx[i].text)
-    #passing in data from our environ & agents list  
+    #passing in data from our environ & agents list and y,x 
     agents.append (agentframework.Agent(environment, agents, y, x))
     #print (agents[i].agents)  #TEST to see each agent get agents list
 #print ("Initial agents:") #comment out for large no's of agents
@@ -123,7 +126,7 @@ for j in range (num_of_iterations):   #moves the coords num of iteration times
 
 
 
-#find max of objects in agents list by getting x, y attributes of the instances
+#Find max of objects in agents list by getting x, y attributes of the instances
 max_y = max (agents, key = operator.attrgetter('y')) #gives max in the y direc
 max_x = max (agents, key = operator.attrgetter('x')) #gives max in the x direc
 print ("Max agent in y direction (dark blue):", max_y)   
@@ -131,7 +134,7 @@ print ("Max agent in x direction (red):", max_x)
 
 
 
-#finding min/max distances between the agents
+#Finding min/max distances between the agents
 #initially setting to None so that max/min dist func can compare
 max_between = None 
 min_between = None 
@@ -164,7 +167,7 @@ print ("Min distance between agents", min_between)
 
 
 
-
+#Plotting the agents 
 matplotlib.pyplot.ylim (0, 100) ##setting graph axis
 matplotlib.pyplot.xlim (0, 100)
 #display environ data as an image, dark blue markings = eaten environ
@@ -189,7 +192,7 @@ ax.set_autoscale_on(False)
 carry_on = True #initially set to true
 
 def update(frame_number):
-    """Move and plot agents, stop if the store value reaches 1000.""" 
+    """Move and plot agents, stop if the store value reaches 1200.""" 
           
     fig.clear()
     global carry_on #so variable can be assigned in the func
@@ -198,7 +201,7 @@ def update(frame_number):
         i.move() #move method for each agent
         
     #if random.random() < 0.1:
-    if i.store >= 1000: #stops eating once store val reaches 999
+    if i.store >= 1200: #stops eating once store val reaches 1199
         carry_on = False
         print ("stopping condition reached")
     
@@ -232,16 +235,13 @@ def gen_function (b= [0]):
         a = a + 1 #add 1 to a 
 
 
-#Create the animation using update func and frames arg is the gen func         #can delete  
-#animation = FuncAnimation(fig,update, interval=1, repeat=False, frames=gen_function)
-#matplotlib.pyplot.show() #shows the animation created in a pop up window
-
-
 def run ():
-    """ Run the animation using update function and display this."""
+    """ Run the animation using the update function and display this."""
     
     animation = FuncAnimation(fig, update, interval=1, repeat=False, frames=gen_function)
     canvas.show() #shows animation when model is ran from the menu command
+
+
 
 #Creating GUI 
 root = tkinter.Tk() #build main window
@@ -260,8 +260,7 @@ tkinter.mainloop()
 
 
 
-
-#outputting environment data as a json file
+#Outputting environment data as a json file
 #f = open ('out.json', 'w') #create json file called 'out', write mode
 #json.dump (environment, f) #dump 2D environ list data into the json file 'out'
 #f.close() #close json file
