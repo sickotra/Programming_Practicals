@@ -176,10 +176,9 @@ for m in range (0, num_of_agents, 1):
             min_between = min (distance, min_between)
 
 end = time.perf_counter() #end the timer for the calculating distances loops
-print ("time = " + str (end - start))
 print ("Max distance between agents", max_between)
 print ("Min distance between agents", min_between)
-
+print ("Time taken to calculate distance between agents = " + str (end - start))
 
 
 #Plotting the agents 
@@ -283,8 +282,8 @@ tkinter.mainloop()
 
 
 #Outputting environment data as a json file
-#f = open ('out.json', 'w') #create json file called 'out', write mode
-#json.dump (environment, f) #dump 2D environ list data into the json file 'out'
-#f.close() #close json file
+f = open ('out.json', 'w') #create json file called 'out', write mode
+json.dump (environment, f) #dump 2D environ list data into the json file 'out'
+f.close() #close json file
 
 
