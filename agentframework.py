@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
+Programming for Social Science.
+Agent Class definition and code to execute.
+
 Created on Fri Sep 18 23:01:03 2020
-
-@author: shiva
-
-This file contains an Agent class definition and some code to execute.
+@author: Shivani Sickotra
 
 """
 
@@ -12,7 +12,29 @@ import random   #for random number generating
 
 
 class Agent:
-
+    """
+    Agent Class:
+        A class to give attributes and behaviours to an abstract agent.
+        
+    Constructor arguements:
+        environment -- 2D list containing coords agents will interact with.
+        agents -- a list of all the agents in the environment.
+        y -- y coord before init method sets agent's coods.
+        x -- x coord before init method sets agent's coods.
+    
+    Agent characteristics:
+        - store
+        - y coordinate
+        - x coordinate 
+        
+    Agent behaviours:
+        - move
+        - eat
+        - calculate distance between itself and another agent
+        - share resources with neighbours
+     
+    """
+    
     #creating our class, template for every agent 
     #protecting _x,_y hidden variables           #TODO DOC STRING NEEDED HERE TOO!!!!
 

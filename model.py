@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
+Programming for Social Science.
+Agent based model.
+
 Created on Tue Sep 15 14:40:21 2020
-
-@author: shiva
-
-This file contains an agent based model.
+@author: Shivani Sickotra
 
 """
 
@@ -62,13 +62,28 @@ f.close() 	#file closed after reading data
 
 
 
-#comment out belwo variables for command prompt interactivity
-num_of_agents = 10    #sets the no of agents
-num_of_iterations = 100  #sets number of steps in the random walk
-neighbourhood = 20 #sets the neighbourhood 
-# num_of_agents = int(sys.argv[1])    #User can input args from command prompt    #TODO need to add exceptions!
-# num_of_iterations = int(sys.argv[2]) 
-# neighbourhood = int(sys.argv[3])  
+#Allowing command line arguments
+#if 4 args are not given at command line (1st arg is model.py file name)
+if len (sys.argv) != 4: 
+    
+    if len (sys.argv) == 1: #if only 1 arg file name is entered
+        print('Model args not provided - running for default args')
+    else:
+        print ('Number of args incorrect - running for default agrs')
+    num_of_agents = 10    #sets the default no of agents
+    num_of_iterations = 100  #sets default number of steps in the random walk
+    neighbourhood = 20 #sets the default neighbourhood value 
+
+else:
+    try:
+        num_of_agents = int(sys.argv[1])  #User can input args from command prompt
+        num_of_iterations = int(sys.argv[2]) 
+        neighbourhood = int(sys.argv[3])  
+        print ('Running for args entered')
+    except:
+        str (sys.argv[1:]) #does not allow characters as variable args
+        print ('Wrong arg type entered - use only integers')
+ 
 print ("Number of Agents:", num_of_agents) #print to show vals used
 print ("Number of Iterations", num_of_iterations)
 print ("Neighbourhood:", neighbourhood)
@@ -129,8 +144,8 @@ for j in range (num_of_iterations):   #moves the coords num of iteration times
 #Find max of objects in agents list by getting x, y attributes of the instances
 max_y = max (agents, key = operator.attrgetter('y')) #gives max in the y direc
 max_x = max (agents, key = operator.attrgetter('x')) #gives max in the x direc
-print ("Max agent in y direction (dark blue):", max_y)   
-print ("Max agent in x direction (red):", max_x)   
+print ("Max agent in y direction (square dark blue):", max_y)   
+print ("Max agent in x direction (square red):", max_x)   
 
 
 
@@ -170,6 +185,9 @@ print ("Min distance between agents", min_between)
 #Plotting the agents 
 matplotlib.pyplot.ylim (0, 100) ##setting graph axis
 matplotlib.pyplot.xlim (0, 100)
+matplotlib.pyplot.title ('A plot to show the agents locations & interactions within the environment')
+matplotlib.pyplot.xlabel('x')
+matplotlib.pyplot.ylabel('y')
 #display environ data as an image, dark blue markings = eaten environ
 matplotlib.pyplot.imshow(environment) 
                                         
@@ -177,9 +195,10 @@ matplotlib.pyplot.imshow(environment)
 for i in range (num_of_agents):
     #get ith obj from agents list, using Agents Class to specify x, y coords
     matplotlib.pyplot.scatter (agents[i].x, agents[i].y) 
-    
-matplotlib.pyplot.scatter (max_y.x, max_y.y, color='blue')#max y dark blue overlay
-matplotlib.pyplot.scatter (max_x.x, max_x.y, color='red') #max x red overlay
+  
+#max y dark blue overlay & max x red overlay, square markers    
+matplotlib.pyplot.scatter (max_y.x, max_y.y, color='blue', marker=(','))
+matplotlib.pyplot.scatter (max_x.x, max_x.y, color='red', marker=(',')) 
 matplotlib.pyplot.show()  #displays scatter plot of agents
 
 
@@ -206,6 +225,9 @@ def update(frame_number):
         print ("stopping condition reached")
     
     for i in agents:  #for every agent in the agents list
+        matplotlib.pyplot.title ('Animation to show movement of agents')
+        matplotlib.pyplot.xlabel('x')
+        matplotlib.pyplot.ylabel('y')
         matplotlib.pyplot.scatter(i.x, i.y) #plot x,y of each agent
         print (i.x, i.y)   
         
@@ -239,7 +261,7 @@ def run ():
     """ Run the animation using the update function and display this."""
     
     animation = FuncAnimation(fig, update, interval=1, repeat=False, frames=gen_function)
-    canvas.show() #shows animation when model is ran from the menu command
+    canvas.show() #shows animation in Figure 2 when model is ran from the menu command
 
 
 
