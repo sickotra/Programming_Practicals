@@ -70,7 +70,7 @@ if len (sys.argv) != 4:
         print('Model args not provided - running for default args')
     else:
         print ('Number of args incorrect - running for default agrs')
-    num_of_agents = 10    #sets the default no of agents
+    num_of_agents = 20    #sets the default no of agents
     num_of_iterations = 100  #sets default number of steps in the random walk
     neighbourhood = 20 #sets the default neighbourhood value 
 
@@ -182,8 +182,8 @@ print ("Time taken to calculate distance between agents = " + str (end - start))
 
 
 #Plotting the agents 
-matplotlib.pyplot.ylim (0, 100) ##setting graph axis
-matplotlib.pyplot.xlim (0, 100)
+matplotlib.pyplot.ylim (0, 300) ##setting graph axis
+matplotlib.pyplot.xlim (0, 300)
 matplotlib.pyplot.title ('A plot to show the agents locations & interactions within the environment')
 matplotlib.pyplot.xlabel('x')
 matplotlib.pyplot.ylabel('y')

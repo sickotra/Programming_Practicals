@@ -79,15 +79,15 @@ class Agent:
 
         """
         
-        #Randomising initial y, x coords of the agent to ints between 0-99
+        #Randomising initial y, x coords of the agent to ints between 0-299
         #if no y, x given, otherwise use data parsed in from HTML webpage
         if (y == None):
-            self._y = random.randint(0, 99) 
+            self._y = random.randint(0, 299) 
         else:
             self._y = y
             
         if (x == None):
-            self._x = random.randint(0, 99)  
+            self._x = random.randint(0, 299)  
         else:
             self.x = x
             
@@ -111,14 +111,14 @@ class Agent:
         #If generated random number is less than 1/2, step by +1, otherwise
         #step by -1.
         if random.random() < 0.5:
-            self._y = (self._y + 1) % 100 #using torus boundary
+            self._y = (self._y + 1) % 300 #using torus boundary
         else: 
-            self._y = (self._y - 1) % 100 
+            self._y = (self._y - 1) % 300 
    
         if random.random() < 0.5:
-            self._x = (self._x + 1) % 100
+            self._x = (self._x + 1) % 300
         else: 
-            self._x = (self._x - 1) % 100
+            self._x = (self._x - 1) % 300
     
     
     def eat(self):
