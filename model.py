@@ -70,8 +70,8 @@ if len (sys.argv) != 4:
         print('Model args not provided - running for default args')
     else:
         print ('Number of args incorrect - running for default agrs')
-    num_of_agents = 20    #sets the default no of agents
-    num_of_iterations = 100  #sets default number of steps in the random walk
+    num_of_agents = 100    #sets the default no of agents
+    num_of_iterations = 500  #sets default number of steps in the random walk
     neighbourhood = 20 #sets the default neighbourhood value 
 
 else:
@@ -115,8 +115,8 @@ print ("Initialising agents--")
 
 for i in range (num_of_agents): 
     
-    y = int (tdy[i].text)
-    x = int (tdx[i].text)
+    y = int (tdy[i].text)#reading in table data x, y as string, convert to int 
+    x = int (tdx[i].text) 
     #passing in data from our environ & agents list and y,x 
     agents.append (agentframework.Agent(environment, agents, y, x))
     #print (agents[i].agents)  #TEST to see each agent get agents list
@@ -189,6 +189,10 @@ matplotlib.pyplot.xlabel('x')
 matplotlib.pyplot.ylabel('y')
 #display environ data as an image, dark blue markings = eaten environ
 matplotlib.pyplot.imshow(environment) 
+#figure caption
+txt= "Fig 1. End locations of " + str(num_of_agents) + " agents in the environment after " + str(num_of_iterations) + " iterations"
+matplotlib.pyplot.figtext(0.5, 0.01, txt, wrap=True, horizontalalignment='center', fontsize=8)
+
                                         
 #plotting all points on a scatter graph, correct way ie x, y not y, x
 for i in range (num_of_agents):
