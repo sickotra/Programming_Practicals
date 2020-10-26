@@ -242,7 +242,7 @@ def gen_function (b= [0]):
     Stop supplying an input when condition is met.
     
     The function will stop yielding a result once it has provided an output
-    num_of_iteration times and when store value is over 1000.
+    num_of_iteration times and when store value is over 1200.
 
     Parameters
     ----------
