@@ -1,4 +1,4 @@
-# A Simple Agent Based Model Using Object Oriented Programming - Sept 2020
+# Dodgy Bumper Cars - Adapted ABM - Oct 2020
 
 The model is a simulation where several agents interact with each other and the environment they are in by various behaviours such as move, eat and sharing resources.
 A UML class diagram for the ABM program is included in the repository. 
