@@ -184,7 +184,7 @@ print ("Time taken to calculate distance between agents = " + str (end - start))
 
 
 # Plotting the agents 
-matplotlib.pyplot.ylim (0, 300) ##setting graph axis
+matplotlib.pyplot.ylim (0, 300) #setting graph axis
 matplotlib.pyplot.xlim (0, 300)
 matplotlib.pyplot.title ('A plot to show the agents locations & interactions within the environment')
 matplotlib.pyplot.xlabel('x')
@@ -234,7 +234,7 @@ def update(frame_number):
         matplotlib.pyplot.xlabel('x')
         matplotlib.pyplot.ylabel('y')
         matplotlib.pyplot.scatter(i.x, i.y) #plot x,y of each agent
-        print (i.x, i.y)   
+        #print (i.x, i.y)   #to test if working 
         
 
 def gen_function (b= [0]): 
