@@ -129,8 +129,7 @@ class Agent:
         if self.environment[self._y][self._x] > 10: 
             self.environment[self._y][self._x] -= 10
             self.store += 10
-        
-        
+               
         
     def distance_between(self, other_agent):
         """

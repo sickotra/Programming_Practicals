@@ -8,10 +8,11 @@ Created on Tue Sep 15 14:40:21 2020
 
 """
 
+# Import packages needed to run
 import random  #for random number generating
 import operator #for extrating 2nd element of agents list
-import tkinter
-import matplotlib
+import tkinter #for GUI 
+import matplotlib #for plotting
 matplotlib.use('TkAgg')
 import matplotlib.pyplot #for plotting agents locations
 from matplotlib.animation import FuncAnimation #for adding animation
@@ -28,8 +29,8 @@ random.seed(0)
 
 
 
-#Web scraping 
-#download the HTML page with data, no username/password needed
+# Web scraping 
+# Download the HTML page with data, no username/password needed
 url = 'http://www.geog.leeds.ac.uk/courses/computing/practicals/python/agent-framework/part9/data.html'
 r = requests.get(url)
 content = r.text #to get page, assign data as a variable
@@ -46,7 +47,7 @@ print(tdx)
 
 
 
-#Setting up environment 
+# Setting up environment 
 f = open ('in.txt', newline='') #read data from text file
 #csv.reader gives data as list of list to be looped through
 dataset = csv.reader (f, quoting=csv.QUOTE_NONNUMERIC) #convers no. to floats
@@ -62,7 +63,7 @@ f.close() 	#file closed after reading data
 
 
 
-#Allowing command line arguments
+# Allowing command line arguments
 #if 4 args are not given at command line (1st arg is model.py file name)
 if len (sys.argv) != 4: 
     
@@ -70,13 +71,13 @@ if len (sys.argv) != 4:
         print('Model args not provided - running for default args')
     else:
         print ('Number of args incorrect - running for default agrs')
-    num_of_agents = 100    #sets the default no of agents
-    num_of_iterations = 500  #sets default number of steps in the random walk
+    num_of_agents = 10    #sets the default no of agents
+    num_of_iterations = 100  #sets default number of steps in the random walk
     neighbourhood = 20 #sets the default neighbourhood value 
 
 else:
     try:
-        num_of_agents = int(sys.argv[1])  #User can input args from command prompt
+        num_of_agents = int(sys.argv[1])  #User can input args from cmd prompt
         num_of_iterations = int(sys.argv[2]) 
         neighbourhood = int(sys.argv[3])  
         print ('Running for args entered')
@@ -110,7 +111,7 @@ print (agent_1.y, agent_1.x)   #will print cood of 1st agent after 100 moves
 
 
 print ("Initialising agents--") 
-#Generating random coords using Agent Class, for every agent
+# Generating random coords using Agent Class, for every agent
 # then adding it to the agents list previously created
 
 for i in range (num_of_agents): 
@@ -149,7 +150,7 @@ print ("Max agent in x direction (square red):", max_x)
 
 
 
-#Finding min/max distances between the agents
+# Finding min/max distances between the agents
 #initially setting to None so that max/min dist func can compare
 max_between = None 
 min_between = None 
@@ -181,7 +182,8 @@ print ("Min distance between agents", min_between)
 print ("Time taken to calculate distance between agents = " + str (end - start))
 
 
-#Plotting the agents 
+
+# Plotting the agents 
 matplotlib.pyplot.ylim (0, 300) ##setting graph axis
 matplotlib.pyplot.xlim (0, 300)
 matplotlib.pyplot.title ('A plot to show the agents locations & interactions within the environment')
@@ -194,7 +196,7 @@ txt= "Fig 1. End locations of " + str(num_of_agents) + " agents in the environme
 matplotlib.pyplot.figtext(0.5, 0.01, txt, wrap=True, horizontalalignment='center', fontsize=8)
 
                                         
-#plotting all points on a scatter graph, correct way ie x, y not y, x
+# Plotting all points on a scatter graph, correct way ie x, y not y, x
 for i in range (num_of_agents):
     #get ith obj from agents list, using Agents Class to specify x, y coords
     matplotlib.pyplot.scatter (agents[i].x, agents[i].y) 
@@ -206,7 +208,7 @@ matplotlib.pyplot.show()  #displays scatter plot of agents
 
 
 
-#Animation
+# Animation
 fig = matplotlib.pyplot.figure(figsize=(7, 7)) #create a figure and set axes
 ax = fig.add_axes([0, 0, 1, 1])
 ax.set_autoscale_on(False)
@@ -263,12 +265,12 @@ def gen_function (b= [0]):
 def run ():
     """ Run the animation using the update function and display this."""
     
-    animation = FuncAnimation(fig, update, interval=1, repeat=False, frames=gen_function)
+    animation=FuncAnimation(fig, update, interval=1, repeat=False, frames=gen_function)
     canvas.show() #shows animation in Figure 2 when model is ran from the menu command
 
 
 
-#Creating GUI 
+# Creating GUI 
 root = tkinter.Tk() #build main window
 root.wm_title ("Model") #sets title for main window
 #create a matplotlib canvas within main window and associate with fig 
@@ -285,7 +287,7 @@ tkinter.mainloop()
 
 
 
-#Outputting environment data as a json file
+# Outputting environment data as a json file
 f = open ('out.json', 'w') #create json file called 'out', write mode
 json.dump (environment, f) #dump 2D environ list data into the json file 'out'
 f.close() #close json file
