@@ -47,6 +47,7 @@ The maximum agents in the `y` and `x` direction will be overlaid in blue/red res
 * Fig 2: This figure will update once the animation is run through the GUI, the agents locations will be the same as Fig 1 to confirm the animation has run correctly.
 
 ## Potential Development <a name="develop"></a>
+A branch called "Enhancment" has been created to develop the program further. The program has some context and models dodgy dodgems, with the added element of removing objects from a list. A detailed description of the development and changes can be found in the Enhancement branch *README.md* file.  
 
 ## Sources <a name="sources"></a>
 GEOG5995M Programming for Social Science: Core Skills practicals (https://www.geog.leeds.ac.uk/courses/computing/study/core-python-phd/)
