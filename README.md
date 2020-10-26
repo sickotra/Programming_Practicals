@@ -3,6 +3,7 @@
 The model is a simulation where several agents interact with each other and the environment they are in by various behaviours such as move, eat and sharing resources.
 A UML class diagram for the ABM program is included in the repository. 
 
+# Repository Contents
 
 ## Running the Program
 The number of agents, number of iterations of the random walks and the neighbourhood can be entered as arguments respectively from the anaconda command prompt/terminal by
@@ -23,11 +24,13 @@ The agents have several behaviours. Each agent is given access to the environmen
 
 
 ## Visualisations (Outputs)
-Once the file is run, 2 figures will be outputted:
-* A plot to visualise the agents locations and the environment they have eaten will be shown.
-The maximum agents in the `y` and `x` direction will be overlaid in blue/red  respectively with square markers. The maximum/minimum distance between the agents will be calculated. The search process is optimised so that it does not repeat pairs of agents or test agents against themselves. The time taken to do this is recorded. 
-* The second output is a window with a dropdown menu that will allow the user to run the model again. This will run an animation (when window is full screen) and show the agents’ movement. The animation continues until a stopping condition has been reached and when there has been `num_of_iteration` iterations. 
+Once the file is run, 2 figures and a GUI called 'Model' will be outputted:
+* Fig 1: A plot to visualise the agents locations and the environment they have eaten will be shown.
+The maximum agents in the `y` and `x` direction will be overlaid in blue/red respectively with square markers. The maximum/minimum distance between the agents will be calculated. The search process is optimised so that it does not repeat pairs of agents or test agents against themselves. The time taken to do this is recorded. 
+* GUI Model: This is a window with a dropdown menu that will allow the user to run the model again. This will run an animation (when window is full screen) and show the agents’ movement. The animation continues until a stopping condition has been reached and when there has been `num_of_iteration` iterations. 
+* Fig 2: This figure will update once the animation is run through the GUI, the agents locations will be the same as Fig 1 to confirm the animation has run correctly.
 
+# Potential Development
 
 ## Sources
 GEOG5995M Programming for Social Science: Core Skills practicals (https://www.geog.leeds.ac.uk/courses/computing/study/core-python-phd/)
