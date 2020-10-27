@@ -36,7 +36,7 @@ class Agent:
     """
     
     #creating our class, template for every agent 
-    #protecting _x,_y hidden variables           #TODO DOC STRING NEEDED HERE TOO!!!!
+    #protecting _x,_y hidden variables           
 
     def get_y (self):
         """Divert access of y int variable to a hidden int variable."""
