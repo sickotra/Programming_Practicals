@@ -13,7 +13,7 @@ import random  #for random number generating
 import operator #for extrating 2nd element of agents list
 import tkinter #for GUI 
 import matplotlib #for plotting
-matplotlib.use('TkAgg')
+matplotlib.use('TkAgg') #for GUI
 import matplotlib.pyplot #for plotting agents locations
 from matplotlib.animation import FuncAnimation #for adding animation
 import time #to see how long dist_between function takes to run
@@ -192,7 +192,7 @@ matplotlib.pyplot.ylabel('y')
 #display environ data as an image, dark blue markings = eaten environ
 matplotlib.pyplot.imshow(environment) 
 #figure caption
-txt= "Fig 1. End locations of " + str(num_of_agents) + " agents in the environment after " + str(num_of_iterations) + " iterations"
+txt="Fig 1. End locations of "+str(num_of_agents)+" agents in the environment after "+str(num_of_iterations)+" iterations"
 matplotlib.pyplot.figtext(0.5, 0.01, txt, wrap=True, horizontalalignment='center', fontsize=8)
 
                                         
